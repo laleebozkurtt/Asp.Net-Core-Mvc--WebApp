@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using WebProjesi.Models;
+using WebApp.Models;
 
 
 namespace WebApp.Controllers
@@ -20,7 +20,7 @@ namespace WebApp.Controllers
             var student = Repository.GetStudentById(id);
 
             if (id == 0)
-                return View( new Student()); // ilk olarak model boş
+                return View(new Student()); // ilk olarak model boş
 
             if (student == null)
                 return NotFound();
@@ -40,7 +40,17 @@ namespace WebApp.Controllers
 
                 return RedirectToAction("List");
             }
+
             return View(student);
+        }
+
+        [HttpPost]
+        public IActionResult Validator(Student student)
+        {
+            if (!ModelState.IsValid)
+                return View(student);
+
+            return View("Success");
         }
 
         [HttpPost]

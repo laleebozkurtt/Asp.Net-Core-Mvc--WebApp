@@ -1,4 +1,4 @@
-﻿namespace WebProjesi.Models
+﻿namespace WebApp.Models
 {
     public static class Repository
     {

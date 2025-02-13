@@ -1,7 +1,15 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using WebApp.Validators;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Fluent Validation'ý DI (Dependency Injection) 
+builder.Services.AddFluentValidation(fv =>fv.RegisterValidatorsFromAssemblyContaining<StudentValidator>());
 
 var app = builder.Build();
 
