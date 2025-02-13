@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
-
 
 namespace WebApp.Controllers
 {
@@ -42,15 +40,6 @@ namespace WebApp.Controllers
             }
 
             return View(student);
-        }
-
-        [HttpPost]
-        public IActionResult Validator(Student student)
-        {
-            if (!ModelState.IsValid)
-                return View(student);
-
-            return View("Success");
         }
 
         [HttpPost]
