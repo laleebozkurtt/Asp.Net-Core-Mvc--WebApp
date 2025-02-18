@@ -3,7 +3,7 @@ using WebApp.Models;
 
 namespace WebApp.Validators
 {
-    public class StudentValidator : AbstractValidator<Student>
+    public class StudentValidator : AbstractValidator<StudentModel>
     {
         public StudentValidator()
         {

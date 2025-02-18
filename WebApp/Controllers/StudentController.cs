@@ -18,7 +18,7 @@ namespace WebApp.Controllers
             var student = Repository.GetStudentById(id);
 
             if (id == 0)
-                return View(new Student()); // ilk olarak model boş
+                return View(new StudentModel()); // ilk olarak model boş
 
             if (student == null)
                 return NotFound();
@@ -27,7 +27,7 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveDetail(Student student)
+        public IActionResult SaveDetail(StudentModel student)
         {
             if (ModelState.IsValid)
             {

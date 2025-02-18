@@ -1,9 +1,18 @@
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using WebApp.Validators;
+using Infrastructure.Context; // AppDbContext i kullanmak için
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Connection String'i appsettings.json'dan oku
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+// Infrastructure içindeki DbContext'i servislere ekle ynai bu baðlantýyý artýk kullanabilisin
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
