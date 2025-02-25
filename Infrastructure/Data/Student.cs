@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApp.Models
 {
-    public class StudentDB
+    public class Student
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

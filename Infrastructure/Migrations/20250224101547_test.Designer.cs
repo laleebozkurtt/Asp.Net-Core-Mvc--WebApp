@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250214125611_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250224101547_test")]
+    partial class test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApp.Models.StudentDB", b =>
+            modelBuilder.Entity("WebApp.Models.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,7 +70,7 @@ namespace Infrastructure.Migrations
                             Email = "lale@gmail.com",
                             Name = "Lale",
                             Phone = "1234567890",
-                            RegisterDate = new DateTime(2025, 2, 14, 15, 56, 10, 406, DateTimeKind.Local).AddTicks(7081),
+                            RegisterDate = new DateTime(2025, 2, 24, 13, 15, 47, 185, DateTimeKind.Local).AddTicks(3544),
                             Surname = "Bozkurt",
                             WillAttend = 1
                         },
@@ -81,7 +81,7 @@ namespace Infrastructure.Migrations
                             Email = "nihal@gmail.com",
                             Name = "Nihal",
                             Phone = "0987654321",
-                            RegisterDate = new DateTime(2025, 2, 14, 15, 56, 10, 408, DateTimeKind.Local).AddTicks(1147),
+                            RegisterDate = new DateTime(2025, 2, 24, 13, 15, 47, 186, DateTimeKind.Local).AddTicks(6348),
                             Surname = "Sengul",
                             WillAttend = 0
                         });
