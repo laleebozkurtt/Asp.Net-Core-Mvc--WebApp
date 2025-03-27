@@ -1,11 +1,13 @@
 ﻿using Infrastructure.Context;
 using Infrastructure.Interfaces;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+ 
     public class StudentController : Controller
     {
         private AppDbContext _context;
@@ -40,7 +42,7 @@ namespace WebApp.Controllers
 
             return View(modelList);
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult Detail(int id)
         {
@@ -104,7 +106,7 @@ namespace WebApp.Controllers
 
             return View(studentModel);
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult Delete(int id)
         {

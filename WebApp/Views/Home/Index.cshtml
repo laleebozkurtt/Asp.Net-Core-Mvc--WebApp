@@ -1,20 +1,62 @@
 ﻿@{
-    ViewData["Title"] = "Homepage";
+	ViewData["Title"] = "Homepage";
 	Layout = "_Layout";
 }
 
 
-
-<div>
-    <title>Web Registration Project</title>
-
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-
-        <h2>Click the button below to add a user.</h2>
-
-        <a asp-controller="Student" asp-action="List" class="btn btn-primary">List user</a>
-
-
-    </div>
+<div class="row">
+	<div class="col-md-6 grid-margin stretch-card">
+		<div class="card tale-bg">
+			<div class="card-people mt-auto">
+				<img src="~/assets/images/dashboard/people.svg" alt="people">
+				<div class="weather-info">
+					<div class="d-flex">
+						<div>
+							<h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i>25<sup>C</sup></h2>
+						</div>
+						<div class="ml-2">
+							<h4 class="location font-weight-normal">Gaziantep</h4>
+							<h6 class="font-weight-normal">Turkey</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+
+@* 
+	<div class="row">
+
+		<div class="col-md-6 grid-margin stretch-card">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">Social button with text</h4>
+					<p class="card-description">Welcome <code>.btn-social-icon-text</code></p>
+					<div class="template-demo">
+						<a asp-controller="Student" asp-action="List" class="btn btn-social-icon-text btn-facebook"><i class="ti-facebook"></i> List user</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> *@
+@* 	<div class="content-wrapper">
+		<div class="col-12 grid-margin stretch-card">
+			<div class="card-body">
+				<div class="text-center">
+
+					<h1 class="display-4">Welcome</h1>
+
+					<h2>Click the button below to add a user.</h2>
+
+					<a asp-controller="Student" asp-action="List" class="btn btn-primary">List user</a>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+ *@
+
+

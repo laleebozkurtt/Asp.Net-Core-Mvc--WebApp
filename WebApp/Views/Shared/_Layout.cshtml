@@ -6,49 +6,287 @@
 	<title>@ViewData["Title"] - WebApp</title>
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+@* 	<link rel="stylesheet" href="~/WebApp.styles.css" asp-append-version="true" />
+ *@
+		<!-- plugins:css -->
+	<link rel="stylesheet" href="~/assets/vendors/feather/feather.css" />
+	<link rel="stylesheet" href="~/assets/vendors/ti-icons/css/themify-icons.css" />
+	<link rel="stylesheet" href="~/assets/vendors/css/vendor.bundle.base.css" />
+	<!-- endinject -->
+	<!-- Plugin css for this page -->
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" href="~/assets/css/vertical-layout-light/style.css" />
+
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/WebApp.styles.css" asp-append-version="true" />
+
+	<!-- endinject -->
+	<link rel="shortcut icon" href="~/assets/images/LaleLogok.png" />
+
+
+
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-			<div class="container-fluid">
-				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApp</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-						aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-					<ul class="navbar-nav flex-grow-1">
+
+
+	<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+		<div class="container-fluid">
+			<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApp</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+				<ul class="navbar-nav flex-grow-1">
+					@if (User.Identity.IsAuthenticated)
+					{
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">User actions</a>
 						</li>
+					}
+				</ul>
+				@* <ul class="navbar-nav ms-auto">
+					<!-- Sağ tarafa almak için ms-auto eklendi -->
+					@if (User.Identity.IsAuthenticated)
+					{
+						<li class="nav-item d-flex align-items-center me-2">Merhaba, @User.Identity.Name!</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+							<form action="/Account/Logout" method="post" style="display: inline;">
+								<button type="submit" class="btn btn-outline-primary btn-fw">Çıkış Yap</button>
+
+							</form>
+
 						</li>
+					}
+					else
+					{
+						<li class="nav-item">
+							<a href="/Account/Login" class="btn btn-outline-primary">Giriş Yap</a>
+						</li>
+					}
+				</ul> *@
+			</div>
+		</div>
+	</nav>
+
+	<div class="container-scroller">
+		<!-- partial:../../partials/_navbar.html -->
+		<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+			<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+				<a class="navbar-brand brand-logo mr-5"  href="/" ><img src="~/assets/images/LaleLogo.png" class="mr-2" alt="logo"></a>
+				<a class="navbar-brand brand-logo-mini" href="Home/Index"><img src="~/assets/images/LaleLogok.png" class="mr-2" alt="logo"></a>
+ 			</div>
+			<div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+				<button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+					<span class="icon-menu"></span>
+				</button>
+				<ul class="navbar-nav mr-lg-2">
+					<li class="nav-item nav-search d-none d-lg-block">
+						<div class="input-group">
+							<div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+								<span class="input-group-text" id="search">
+									<i class="icon-search"></i>
+								</span>
+							</div>
+							<input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+						</div>
+					</li>
+				</ul>
+				<ul class="navbar-nav navbar-nav-right">
+					<li class="nav-item dropdown">
+						<a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+							<i class="icon-bell mx-0"></i>
+							<span class="count"></span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+							<p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+
+							<a class="dropdown-item preview-item">
+								<div class="preview-thumbnail">
+									<div class="preview-icon bg-warning">
+										<i class="ti-settings mx-0"></i>
+									</div>
+								</div>
+									<div class="preview-item-content">
+										<h6 class="preview-subject font-weight-normal">Settings</h6>
+										<p class="font-weight-light small-text mb-0 text-muted">
+											Private message
+										</p>
+									</div>
+								</a>
+
+							</a>
+
+						</div>
+					</li>
+					<ul class="navbar-nav ms-auto">
+						<!-- Sağ tarafa almak için ms-auto eklendi -->
+						@if (User.Identity.IsAuthenticated)
+						{
+
+							<li class="nav-item nav-profile dropdown">
+								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+									<img src="~/assets/images/faces/profilelale.jpeg" alt="profile">
+								</a>
+								<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+									<a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">
+										<i class="ti-settings text-primary"></i>
+										Settings
+									</a>
+									<a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">
+										<i class="ti-power-off text-primary"></i> Logout
+									</a>
+								</div>
+							</li>
+						}
+						else
+						{
+							<li class="nav-item">
+								<a href="/Account/Login" class="btn btn-outline-primary">Giriş Yap</a>
+							</li>
+						}
 					</ul>
-				</div>
+
+				</ul>
+				<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+					<span class="icon-menu"></span>
+				</button>
 			</div>
 		</nav>
-	</header>
-	<div class="container">
-		<main role="main" class="pb-3">
-			@RenderBody()
-		</main>
+
+		<div class="container-fluid page-body-wrapper ">
+			<!-- partial:../../partials/_sidebar.html -->
+			<nav class="sidebar sidebar-offcanvas" id="sidebar">
+				<ul class="nav">
+					<li class="nav-item">
+						<a class="nav-link" href='@Url.Action("Index","Home")'>
+							<i class="icon-grid menu-icon"></i>
+							<span class="menu-title">Dashboard</span>
+						</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+							<i class="icon-layout menu-icon"></i>
+							<span class="menu-title">User Actions</span>
+							<i class="menu-arrow"></i>
+						</a>
+						<div class="collapse show" id="ui-basic">
+							<ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link active" href="/Student/List">User List</a></li>
+							<li class="nav-item"> <a class="nav-link" href="#">Content 2</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+							<i class="icon-columns menu-icon"></i>
+							<span class="menu-title">About Me</span>
+							<i class="menu-arrow"></i>
+						</a>
+						<div class="collapse" id="form-elements">
+							<ul class="nav flex-column sub-menu">
+								<li class="nav-item"><a class="nav-link active" href="/AboutMe/Index">Social Acounts</a></li>
+
+							</ul>
+						</div>
+					</li>
+					@* <li class="nav-item">
+						<a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+							<i class="icon-bar-graph menu-icon"></i>
+							<span class="menu-title">Tıtle 3</span>
+							<i class="menu-arrow"></i>
+						</a>
+						<div class="collapse" id="charts">
+							<ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="../../pages/charts/chartjs.html">Content 1</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+							<i class="icon-grid-2 menu-icon"></i>
+							<span class="menu-title">Tıtle 4</span>
+							<i class="menu-arrow"></i>
+						</a>
+						<div class="collapse" id="tables">
+							<ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="../../pages/tables/basic-table.html">Content 1</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+							<i class="icon-contract menu-icon"></i>
+							<span class="menu-title">Tıtle 5</span>
+							<i class="menu-arrow"></i>
+						</a>
+						<div class="collapse" id="icons">
+							<ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="../../pages/icons/mdi.html">Content 1</a></li>
+							</ul>
+						</div>
+					</li> *@
+			@* 		<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="icon-paper menu-icon"></i>
+							<span class="menu-title">Title 6</span>
+						</a>
+					</li> *@
+				</ul>
+			</nav>
+			<!-- partial -->
+			<div class="main-panel">
+				<div class="content-wrapper">
+
+					@RenderBody()
+
+				</div>
+				<!-- content-wrapper ends -->
+				<!-- partial:../../partials/_footer.html -->
+				<footer class="footer">
+					<div class="d-sm-flex justify-content-center justify-content-sm-between">
+						<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024. Lale. All rights reserved.</span>
+					</div>
+				</footer>
+				<!-- partial -->
+			</div>
+			<!-- main-panel ends -->
+		</div>
+		<!-- page-body-wrapper ends -->
 	</div>
 
-	<footer class="border-top footer text-muted">
-		<div class="container">
-			&copy; 2025 - WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-		</div>
-	</footer>
+
+
+
+
+
+	<!-- Global JS Plugins -->
+	<!-- plugins:js -->
+	<script src="~/assets/vendors/js/vendor.bundle.base.js"></script>
+	<!-- endinject -->
+	<!-- Plugin js for this page -->
+	<!-- End plugin js for this page -->
+	<!-- inject:js -->
+	<script src="~/assets/js/off-canvas.js"></script>
+	<script src="~/assets/js/hoverable-collapse.js"></script>
+	<script src="~/assets/js/template.js"></script>
+	<script src="~/assets/js/settings.js"></script>
+	<script src="~/assets/js/todolist.js"></script>
+	<!-- endinject -->
+	<!-- jQuery ve Bootstrap JS -->
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
+
 	@await RenderSectionAsync("Scripts", required: false)
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>

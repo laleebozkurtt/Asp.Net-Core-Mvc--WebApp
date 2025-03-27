@@ -10,6 +10,9 @@ a.navbar-brand {
 a {
   color: #0077cc;
 }
+body {
+    padding-top: 0;
+}
 
 .btn-primary {
   color: #fff;
