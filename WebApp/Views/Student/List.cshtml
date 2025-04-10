@@ -50,9 +50,7 @@
 											Sil
 										</button>
 
-										<!-- Form -->
-										<form id="delete-form-@student.Id" asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" method="post" style="display: none;"></form>
-
+										
 									</td>
 								</tr>
 							}
@@ -72,44 +70,61 @@
 <!-- SweetAlert2 Kütüphanesini Dahil Et -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- Silme İşlemi İçin Javascript Fonksiyonu -->
-<script>
-		function confirmDelete(studentId) {
-			const swalWithBootstrapButtons = Swal.mixin({
-	  customClass: {
-		confirmButton: "btn btn-success",
-		cancelButton: "btn btn-danger"
-	  },
-	  buttonsStyling: false
-	});
-	swalWithBootstrapButtons.fire({
-	  title: "Are you sure?",
-	  text: "You won't be able to revert this!",
-	  icon: "warning",
-	  showCancelButton: true,
-	  confirmButtonText: "Yes, delete it!",
-	  cancelButtonText: "No, cancel!",
-	  reverseButtons: true
-	}).then((result) => {
-	  if (result.isConfirmed) {
-		  document.getElementById('delete-form-' + studentId).submit();
+<<script>
+	 function confirmDelete(studentId) {
+		 const swalWithBootstrapButtons = Swal.mixin({
+			 customClass: {
+				 confirmButton: "btn btn-success",
+				 cancelButton: "btn btn-danger"
+			 },
+			 buttonsStyling: false
+		 });
+		 swalWithBootstrapButtons.fire({
+			 title: "Are you sure?",
+			 text: "You won't be able to revert this!",
+			 icon: "warning",
+			 showCancelButton: true,
+			 confirmButtonText: "Yes, delete it!",
+			 cancelButtonText: "No, cancel!",
+			 reverseButtons: true
+		 }).then((result) => {
+			 if (result.isConfirmed) {
 
-		swalWithBootstrapButtons.fire({
-		  title: "Deleted!",
-		  text: "Your file has been deleted.",
-		  icon: "success"
-		});
-	  } else if (
-		/* Read more about handling dismissals below */
-		result.dismiss === Swal.DismissReason.cancel
-	  ) {
-		swalWithBootstrapButtons.fire({
-		  title: "Cancelled",
-		  text: "Your imaginary file is safe :)",
-		  icon: "error"
-		});
-	  }
-	});
-	}
+				 // AJAX İsteği Gönderme
+				 $.ajax({
+					 url: "/Student/Delete",  // Silme isteğini göndereceğimiz URL
+					 type: "POST",
+					 data: { id: studentId },  // Gönderilecek veri
+					 success: function (response) {
+						 if (response.success) {
+							 // Silme başarılıysa tablo satırını kaldır
+							 $("#row-" + studentId).remove();
 
+							 // Başarı mesajı göster
+							 swalWithBootstrapButtons.fire({
+								 title: "Deleted!",
+								 text: response.message,
+								 icon: "success"
+							 });
+						 } else {
+							 // Hata mesajı göster
+							 swalWithBootstrapButtons.fire({
+								 title: "Error!",
+								 text: response.message,
+								 icon: "error"
+							 });
+						 }
+					 },
+					 error: function () {
+						 swalWithBootstrapButtons.fire({
+							 title: "Error!",
+							 text: "An error occurred while deleting the record.",
+							 icon: "error"
+						 });
+					 }
+				 });
+			 }
+		 });
+	 }
 </script>
+

@@ -15,17 +15,17 @@ namespace WebApp.Infrastructure.Data
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-                // Eğer "Admin" rolü yoksa oluştur
+                //  "Admin" rolü yoksa oluştur
                 if (!await roleManager.RoleExistsAsync("Admin"))
                 {
                     await roleManager.CreateAsync(new IdentityRole("Admin"));
                 }
-                // Eğer "User" rolü yoksa oluştur
+                // "User" rolü yoksa oluştur
                 if (!await roleManager.RoleExistsAsync("User"))
                 {
                     await roleManager.CreateAsync(new IdentityRole("User"));
                 }
-                // Admin kullanıcı tanımlandı mı kontrol et
+                // Admin kullanıcı tanımlandı mı 
                 if (await userManager.FindByEmailAsync("admin@example.com") == null)
                 {
                     var adminUser = new IdentityUser

@@ -1,0 +1,6 @@
+@App_APİ_HostAddress = http://localhost:5010
+
+GET {{App_APİ_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

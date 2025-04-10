@@ -80,7 +80,17 @@ namespace WebApp.Controllers
                     student.Surname = "Bozkurt";
                     student.RegisterDate = DateTime.Now;
                     student.BirthDate = DateTime.Now.AddYears(-5);
-                    _service.CreateStudent(student);
+
+                    var result = _service.CreateStudent(student);
+
+                    if (result.Id>0)
+                    {
+                        return RedirectToAction("List");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Öğrenci eklenirken hata oluştu.");
+                    }
 
                 }
                 else
@@ -93,14 +103,20 @@ namespace WebApp.Controllers
                         student.Phone = studentModel.Phone;
                         student.WillAttend = studentModel.WillAttend;
 
-                        _service.UpdateStudent(student);
+                        var result = _service.UpdateStudent(student);
+
+
+                        if (result.Id > 0)
+                        {
+                            return RedirectToAction("List");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Öğrenci eklenirken hata oluştu.");
+                        }
                     }
                 }
-                //if (student.Id == 0)
-                //    Repository.AddStudent(student);
-                //else
-                //    Repository.UpdateStudent(student);
-
+               
                 return RedirectToAction("List");
             }
 
@@ -110,14 +126,15 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            //var student = Repository.GetStudentById(id);
             var student = _service.GetStudentById(id);
             if (student != null)
             {
                 _service.DeleteStudent(id);
-                //Repository.Students.Remove(student);
+                return Json(new { success = true, message = "Öğrenci başarıyla silindi." });
+
             }
-            return RedirectToAction("List");
+            return Json(new { success = false, message = "Öğrenci bulunamadı." });
+
         }
 
     }

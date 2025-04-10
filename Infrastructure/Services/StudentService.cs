@@ -12,13 +12,14 @@ namespace Infrastructure.Services
             _context = context;
         }
 
-        public void CreateStudent(Student student)
+        public Student CreateStudent(Student student)
         {
             _context.Students.Add(student);
             _context.SaveChanges();
+            return student;
         }
 
-        public void UpdateStudent(Student student)
+        public Student UpdateStudent(Student student)
         {
             var existingStudent = _context.Students.FirstOrDefault(s => s.Id == student.Id);
             if (existingStudent != null)
@@ -31,16 +32,20 @@ namespace Infrastructure.Services
                 _context.Students.Update(existingStudent);
                 _context.SaveChanges();
             }
+            return student;
         }
 
-        public void DeleteStudent(int id)
+        public int DeleteStudent(int id)
         {
             var existingStudent = _context.Students.FirstOrDefault(s => s.Id == id);
             if (existingStudent != null)
             {
                 _context.Students.Remove(existingStudent);
                 _context.SaveChanges();
+                return existingStudent.Id;
             }
+            return -1;
+
         }
 
         public Student GetStudentById(int id)
