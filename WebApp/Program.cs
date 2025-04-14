@@ -5,7 +5,6 @@ using FluentValidation.AspNetCore;
 using Infrastructure.Context; // AppDbContext i kullanmak için
 using Infrastructure.Interfaces;
 using Infrastructure.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;

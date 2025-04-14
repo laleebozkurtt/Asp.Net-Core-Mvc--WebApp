@@ -14,6 +14,7 @@ namespace Infrastructure.Services
 
         public Student CreateStudent(Student student)
         {
+            student.Id = 0;
             _context.Students.Add(student);
             _context.SaveChanges();
             return student;

@@ -1,12 +1,13 @@
 ﻿using Infrastructure.Context;
 using Infrastructure.Interfaces;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 
 namespace App_APİ.Controllers
 {
-    [Route("[controller]")]
+    [Route("/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -50,8 +51,8 @@ namespace App_APİ.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] Student student)
+        [HttpPost("create")]
+        public IActionResult CreateStudent([FromBody] Student student)
         {
             var result = _studentService.CreateStudent(student);
 
@@ -64,6 +65,48 @@ namespace App_APİ.Controllers
                 return BadRequest("Student not created");
             }
         }
+
+        [HttpPost("UpdateStudent")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize]
+        //[AllowAnonymous] 
+        public IActionResult UpdateStudent([FromBody] Student student)
+        {
+            var result = _studentService.UpdateStudent(student);
+
+            if ( result !=null && result.Id > 0)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest("Student not updated");
+            }
+        }
+
+        [HttpPost("delete")]
+        [Authorize]
+        public IActionResult DeleteStudent(int id)
+        {
+            var result = _studentService.DeleteStudent(id);
+
+            if (result > 0 && result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest("Student not updated");
+            }
+        }
+
+        [HttpGet("secret")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult SecretData()
+        {
+            return Ok("Bu veri sadece token olanlara açık");
+        }
+
 
     }
 }

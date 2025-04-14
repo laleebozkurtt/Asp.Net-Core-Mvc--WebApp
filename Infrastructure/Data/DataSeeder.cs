@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading.Tasks;
 
 namespace WebApp.Infrastructure.Data
 {
@@ -42,9 +39,7 @@ namespace WebApp.Infrastructure.Data
                         await userManager.AddToRoleAsync(adminUser, "Admin");
                     }
 
-                }
-
-                
+                }               
 
             }
         }
